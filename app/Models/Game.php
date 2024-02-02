@@ -10,6 +10,6 @@ class Game extends Model
     use HasFactory;
 
     protected $fillable = [
-        'dice1', 'dice2', 'won', 'user_id'
+        'dice1', 'dice2', 'win', 'user_id'
     ];
 }
