@@ -61,8 +61,6 @@ class UserController extends Controller
         $user->assignRole($role);
     }
 
-
-
     public function authenticate(Request $request)
     {
         $credentials = [
@@ -81,6 +79,20 @@ class UserController extends Controller
             ], 200);
         } else {
             return response()->json(['error' => 'Error de inicio de sesión. Error en mail o contraseña.'], 401);
+        }
+    }
+
+    public function logout()
+    {
+        $user = Auth::user();
+
+        if ($user) {
+
+            $user->tokens->each->revoke();
+
+            return response()->json('Hasta pronto!', 200);
+        } else {
+            return response()->json('No tienes sesion abierta!', 401);
         }
     }
 
