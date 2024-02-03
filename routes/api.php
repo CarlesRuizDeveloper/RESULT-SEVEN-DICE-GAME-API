@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/players', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login'])->name('login');
