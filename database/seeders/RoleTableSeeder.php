@@ -17,26 +17,27 @@ class RoleTableSeeder extends Seeder
 
         
         $role1 = Role::firstOrCreate(
-            ['name' => 'admin', 'guard_name' => 'web']
+            ['name' => 'admin']
         );
         $role2 = Role::firstOrCreate(
-            ['name' => 'player', 'guard_name' => 'web']
+            ['name' => 'player']
         );
         
-        $permission = Permission::firstOrCreate(['name'=>'games.getPlayerGames', 'guard_name'=>'web']);
+        Permission::firstOrCreate(['name'=>'getGames'])->syncRoles([$role1,$role2]);
 
-        $permission->syncRoles([$role1,$role2]);
+        Permission::firstOrCreate(['name'=>'deleteAllGames'])->syncRoles([$role1,$role2]);
 
+        Permission::firstOrCreate(['name'=>'rollDice'])->syncRoles([$role1,$role2]);
+
+        Permission::firstOrCreate(['name'=>'getAllPlayers'])->syncRoles([$role1,$role2]);
+
+        Permission::firstOrCreate(['name'=>'getLoser'])->syncRoles([$role1,$role2]);
         
-        $permission2 = Permission::firstOrCreate(['name'=>'users.index', 'guard_name'=>'web']);
+        Permission::firstOrCreate(['name'=>'getWinner'])->syncRoles([$role1,$role2]);
 
-        $permission2->syncRoles([$role1,$role2]);
+        Permission::firstOrCreate(['name'=>'update'])->syncRoles([$role1,$role2]);
 
-        
-        $permission3 = Permission::firstOrCreate(['name'=>'players.ranking', 'guard_name'=>'web']);
-
-        $permission3->syncRoles([$role1]);
-
+        Permission::firstOrCreate(['name'=>'getRankingWithDetails'])->syncRoles([$role1,$role2]);
         
     }
 }
