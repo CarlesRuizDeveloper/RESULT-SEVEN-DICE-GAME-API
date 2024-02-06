@@ -17,13 +17,7 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::firstOrCreate(
-            ['name' => 'admin', 'guard_name' => 'web']
-        );
-       
-        $role1 = Role::firstOrCreate(
-            ['name' => 'player', 'guard_name' => 'web']
-        );
+
 
         $user1 = User::firstOrCreate(
             [
@@ -33,9 +27,9 @@ class UserTableSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ]
         );
-        if (!$user1->hasRole('admin')) {
-            $user1->assignRole($role);
-        }
+     
+            $user1->assignRole('admin');
+        
 
         $user2 = User::firstOrCreate([
             'name' => 'player',
@@ -44,9 +38,9 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('player'),
             'remember_token' => Str::random(10),
         ]);
-        if (!$user2->hasRole('player')) {
-            $user2->assignRole($role1);
-        }  
+    
+            $user2->assignRole('player');
+      
 
         User::factory()->count(10)->create();
     }
