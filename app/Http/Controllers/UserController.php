@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Passport;
