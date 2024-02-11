@@ -69,8 +69,8 @@ class Kernel extends HttpKernel
         'auth:api' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
 
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
-        'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+        //'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        //'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 }
