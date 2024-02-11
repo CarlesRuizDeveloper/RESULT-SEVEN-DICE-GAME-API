@@ -19,19 +19,25 @@ class UserController extends Controller
     { 
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'alpha_num', 
+            ],
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
+    
         $name = $this->generateUniqueName($request);
         $user = $this->createUser($request, $name);
         $this->assignPlayerRoleToUser($user);
-
+    
         return response()->json($user, 201);
     }
+    
 
     public function generateUniqueName(Request $request)
     {
