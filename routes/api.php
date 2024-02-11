@@ -21,16 +21,30 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::middleware('auth:api')->group(function () {
 
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
-
-    Route::get('/players/{id}/games', [GameController::class, 'getGames'])->middleware('can:getGames');
-    Route::delete('/players/{id}/games', [GameController::class, 'deleteAllGames'])->middleware('can:deleteAllGames');
-    Route::post('/players/{id}/games', [GameController::class, 'rollDice'])->middleware('can:rollDice');
-    Route::get('/players', [UserController::class, 'getAllPlayers'])->middleware('can:getAllPlayers');
-    Route::get('/players/ranking/loser', [UserController::class, 'getLoser'])->middleware('can:getLoser'); 
-    Route::get('/players/ranking/winner', [UserController::class, 'getWinner'])->middleware('can:getWinner');     
     Route::put('/players/{id}', [UserController::class, 'update'])->middleware('can:update');  
-    Route::get('/players/ranking', [UserController::class, 'getRankingWithDetails'])->middleware('can:getRankingWithDetails'); 
-          
+
+
+    Route::middleware('role:Admin')->group(function () {
+
+        Route::get('/players', [UserController::class, 'getAllPlayers'])->middleware('can:getAllPlayers');
+        Route::get('/players/ranking', [UserController::class, 'getRankingWithDetails'])->middleware('can:getRankingWithDetails'); 
+        Route::get('/players/ranking/loser', [UserController::class, 'getLoser'])->middleware('can:getLoser'); 
+        Route::get('/players/ranking/winner', [UserController::class, 'getWinner'])->middleware('can:getWinner'); 
+    });
+
+    Route::middleware('role:player')->group(function () {
+
+        Route::get('/players/{id}/games', [GameController::class, 'getGames'])->middleware('can:getGames');
+        Route::post('/players/{id}/games', [GameController::class, 'rollDice'])->middleware('can:rollDice');
+        Route::delete('/players/{id}/games', [GameController::class, 'deleteAllGames'])->middleware('can:deleteAllGames');
+
+    });    
 });
 
-    
+
+
+ 
+
+
+
+

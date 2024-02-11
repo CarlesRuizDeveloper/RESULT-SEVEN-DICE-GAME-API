@@ -29,7 +29,7 @@ class RoleTableSeeder extends Seeder
 
         Permission::firstOrCreate(['name'=>'rollDice'])->syncRoles([$role1,$role2]);
 
-        Permission::firstOrCreate(['name'=>'getAllPlayers'])->syncRoles([$role1,$role2]);
+        Permission::firstOrCreate(['name'=>'getAllPlayers'])->syncRoles([$role1]);
 
         Permission::firstOrCreate(['name'=>'getLoser'])->syncRoles([$role1,$role2]);
         

@@ -6,11 +6,14 @@ use App\Models\Game;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class UserAngGameTest extends TestCase
 {
+
+    use  WithoutMiddleware;//RefreshDatabase,
 
   public function testPlayerRegisterSuccess()
   {
@@ -27,6 +30,9 @@ class UserAngGameTest extends TestCase
           'email' => 'Cafewree3efdeed@carles.com',
           'password' => 'Cafee3efdeed'
       ]);
+
+        $user = User::where('email', 'Cafewree3efdeed@carles.com')->first();
+        $user->delete();
   }
 
   public function testGetAllPlayers()
@@ -60,8 +66,6 @@ class UserAngGameTest extends TestCase
 
       $response->assertStatus(200);
   }
-
-  // GameController
 
   public function testRollDice()
   {
@@ -107,7 +111,27 @@ class UserAngGameTest extends TestCase
 
       $response->assertStatus(200);
   }
+
+  public function testDeleteUser()
+{
+    $user = User::factory()->create();
+
+    $this->assertDatabaseHas('users', [
+        'email' => $user->email,
+    ]);
+
+    $user->delete();
+
+    $this->assertDatabaseMissing('users', [
+        'email' => $user->email,
+    ]);
 }
+
+
+
+}
+  
+
   
   
 

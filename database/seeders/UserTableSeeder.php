@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
             [
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
-                'email_verified_at' => now(), 'password' => Hash::make('admin'),
+                'email_verified_at' => now(), 'password' => Hash::make('admin123456'),
                 'remember_token' => Str::random(10),
             ]
         );
@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
             'name' => 'player',
             'email' => 'player@player.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('player'),
+            'password' => Hash::make('player123456'),
             'remember_token' => Str::random(10),
         ]);
     
