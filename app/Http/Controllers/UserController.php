@@ -18,6 +18,7 @@ class UserController extends Controller
     public function register(Request $request)
     { 
         $validator = Validator::make($request->all(), [
+            'name' => 'unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => [
                 'required',
@@ -167,6 +168,11 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
+
+        if ($user->id != Auth::user()->id) {
+            return response()->json(['Error'=>'No tens permisos per a realitzar aquesta acció.'], 403);
+        }
+
         $user->name = $request->name;
         $user->save();
 

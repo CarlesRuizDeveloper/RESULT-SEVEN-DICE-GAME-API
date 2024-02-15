@@ -24,7 +24,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/players/{id}', [UserController::class, 'update'])->middleware('can:update');  
 
 
-    Route::middleware('role:Admin')->group(function () {
+    Route::middleware('role:admin')->group(function () {
 
         Route::get('/players', [UserController::class, 'getAllPlayers'])->middleware('can:getAllPlayers');
         Route::get('/players/ranking', [UserController::class, 'getRankingWithDetails'])->middleware('can:getRankingWithDetails'); 

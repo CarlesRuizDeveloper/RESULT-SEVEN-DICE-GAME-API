@@ -22,7 +22,7 @@ class GameController extends Controller
         $user = User::findOrFail($id);
 
         if ($user->id != Auth::user()->id) {
-            return response()->json('No tens permisos per a realitzar aquesta acció.', 403);
+            return response()->json(['Error'=>'No tens permisos per a realitzar aquesta acció.'], 403);
         }
 
         $dice1 = rand(1, 6);
@@ -45,12 +45,12 @@ class GameController extends Controller
         $user = User::findOrFail($id);
 
         if ($user->id != Auth::user()->id) {
-            return response()->json('No tens permisos per a realitzar aquesta acció.', 403);
+            return response()->json(['Error'=>'No tens permisos per a realitzar aquesta acció.'], 403);
         }
 
         Game::where('user_id', $user->id)->delete();
 
-        return response()->json('Historial de tirades eliminat correctament.', 200);
+        return response()->json(['error' => 'Historial de tirades eliminat correctament'], 200);
     }
 
     public function getAllPlayers()
@@ -79,6 +79,10 @@ class GameController extends Controller
     public function getGames($id)
     {
         $user = User::findOrFail($id);
+
+        if ($user->id != Auth::user()->id) {
+            return response()->json(['Error'=>'No tens permisos per a realitzar aquesta acció.'], 403);
+        }
     
         $games = $user->games;
     
